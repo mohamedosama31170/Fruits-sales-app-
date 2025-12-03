@@ -1,16 +1,37 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fruit_app/model.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
-
   @override
   State<Home> createState() => _HomeState();
 }
-
 class _HomeState extends State<Home> {
-
-
+  List<String>items= [
+    "assets/banners/Slider 1.png" ,
+    "assets/banners/Slider 2.png" ,
+    "assets/banners/Slider 3.png" ,
+  ];
+  List<CategoryModel>category = [
+    CategoryModel(
+        name: "shopping" ,
+        image: "assets/category/shopping.png",
+    ),
+    CategoryModel(
+      name: "milk" ,
+      image: "assets/category/milk.png",
+    ),
+    CategoryModel(
+      name: "water" ,
+      image: "assets/category/Water.png",
+    ),
+    CategoryModel(
+      name: "landry" ,
+      image: "assets/category/landry.png",
+    ),
+  ]; 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,15 +45,100 @@ class _HomeState extends State<Home> {
             Text("61 hopper street .."),
             SizedBox(width: 10),
             Icon(Icons.arrow_forward_ios),
+            Spacer(),
             SvgPicture.asset('assets/icons/basket.svg'),
-               Spacer(),
-
-
           ],
         ),
       ),
-      body: Column(
+        body: Column(
+
         children: [
+          //banner
+          CarouselSlider.builder(
+          itemCount: items.length,
+          itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
+           Image.asset(items[itemIndex])
+                ,options: CarouselOptions(
+          height: 170,
+          aspectRatio: 1,
+          viewportFraction:0.8,
+          autoPlay: true,
+          autoPlayInterval: Duration(seconds: 2),
+          autoPlayAnimationDuration: Duration(seconds: 3),
+          enlargeCenterPage: true,
+            autoPlayCurve: Curves.linear,
+
+          ), //
+         ),
+
+        // category
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal ,
+            child: Row(
+              children: List.generate(category.length,(index) {
+              return  Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 11.0),
+                child: Column(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade300,
+                        shape: BoxShape.circle
+                      ),
+                      width :70,
+                      height:70,
+                      child:Image.asset(category[index].image , width: 60,) ,
+                    ),
+                    Text(category[index].name),//
+                  ],
+                 ),
+              );
+              }),
+            ),
+          ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* category
+           CarouselSlider.builder(
+            itemCount: category.length,
+            itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
+             Column(
+          children: [
+          Container(
+          decoration: BoxDecoration(
+            color: Colors.grey.shade300,
+          ),
+         child:Image.asset(category[itemIndex].image , width: 40,) ,
+          ),
+          Text(category[itemIndex].name),//
+          ],
+          ), //
+            options: CarouselOptions(
+            height: 170,
+            aspectRatio: 1,
+            viewportFraction:0.3,
+            autoPlay: false,
+            autoPlayInterval: Duration(seconds: 2),
+            autoPlayAnimationDuration: Duration(seconds: 3),
+            enlargeCenterPage: false,
+            autoPlayCurve: Curves.linear,
+
+          ), //
+          ), */
+
         ],
       ),
     );
