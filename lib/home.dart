@@ -1,7 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fruit_app/colors.dart';
 import 'package:fruit_app/model.dart';
+import 'package:fruit_app/product%20item.dart';
+
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -31,7 +34,36 @@ class _HomeState extends State<Home> {
       name: "landry" ,
       image: "assets/category/landry.png",
     ),
-  ]; 
+  ];
+
+  List<ProductModel>product = [
+    ProductModel(
+        name: "orange",
+        image: "assets/fruits/orange.png",
+        price: '3.99',
+        rate: '400',
+        rateCount:'200'
+
+    ),
+
+    ProductModel(
+        name: "orange",
+        image: "assets/fruits/orange.png",
+        price: '3.99',
+        rate: '400',
+        rateCount:'300'
+
+    ),
+
+    ProductModel(
+        name: "orange",
+        image: "assets/fruits/orange.png",
+        price: '3.99',
+        rate: '400',
+        rateCount:'500'
+
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,20 +114,107 @@ class _HomeState extends State<Home> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.grey.shade300,
+                        color: Colors.grey.shade200,
                         shape: BoxShape.circle
                       ),
                       width :70,
                       height:70,
                       child:Image.asset(category[index].image , width: 60,) ,
                     ),
-                    Text(category[index].name),//
+                    SizedBox(height:1),
+                    Text(category[index].name , style:TextStyle(fontWeight:FontWeight.bold ),),//
                   ],
                  ),
               );
               }),
             ),
           ),
+
+        SizedBox(height: 20),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal:20.0),
+            child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Fruits",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+              Text("see all",style: TextStyle(fontWeight:FontWeight.bold, fontSize: 17, color:AppColors.primary)),
+             ],
+             ),
+          ),
+
+          SingleChildScrollView(
+            scrollDirection:Axis.horizontal,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: List.generate(product.length, (index){
+                final item = product [index];
+                return ProductItem(
+                    image:item.image,
+                    name :item.name,
+                    rate: item.rate,
+                    rateCount:item.rateCount,
+                    price:item.price);
+              }),
+            ),
+          )
+
+
+          /*Card(
+            color:Colors.white ,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                   Padding(
+                     padding: const EdgeInsets.all(8.0),
+                     child: Container(
+                       decoration:BoxDecoration(
+                         color: Colors.grey.shade100,
+                           borderRadius:BorderRadius.circular(10),
+
+                       ),
+
+                     padding: EdgeInsets.all(10),
+                       child: Image.asset("assets/fruits/orange.png", width: 146),
+                     ),
+                   ),
+                Text(
+                  'banana'
+                     ,style:TextStyle(
+                     fontSize: 18,
+                     fontWeight: FontWeight.bold
+
+                )
+                ),
+
+                SizedBox(height: 10,),
+                Row (
+                    mainAxisSize: MainAxisSize.min,
+                  children:[ 
+                    Image.asset("assets/icons/star.png" , width: 18 ),
+                    Text(
+                        '4.8(287)'
+                        ,style:TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal,
+
+                    )
+                    ),
+
+                  ],
+                ),
+                Text(
+                    '\$350'
+                    ,style:TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+
+                )
+                )
+              ],
+            ),
+          ),*/
+
 
 
 
