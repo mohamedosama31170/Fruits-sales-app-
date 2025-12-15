@@ -5,7 +5,8 @@ class ProductItem extends StatelessWidget {
     required this.name ,
     required this.rate ,
     required this.rateCount,
-    required this.price
+    required this.price,
+    required this.onTap,
 
   });
   final String image;
@@ -13,6 +14,7 @@ class ProductItem extends StatelessWidget {
   final String rate ;
   final String rateCount;
   final String price ;
+  final Function()? onTap;
 
 
   @override

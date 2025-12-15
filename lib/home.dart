@@ -110,16 +110,38 @@ class _HomeState extends State<Home> {
               children: List.generate(category.length,(index) {
               return  Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 11.0),
-                child: Column(
+                child: Stack(
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
-                        shape: BoxShape.circle
-                      ),
-                      width :70,
-                      height:70,
-                      child:Image.asset(category[index].image , width: 60,) ,
+                    Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade200,
+                            shape: BoxShape.circle
+                          ),
+                          width :70,
+                          height:70,
+                          child:Image.asset(category[index].image , width: 60,) ,
+                        ),
+
+                        Positioned(
+                             bottom: 6 ,
+                              right: 5 ,
+
+                              child: GestureDetector(
+                              onTap: () {
+                             print("Add tapped");
+                                     }
+
+
+                ,child: CircleAvatar(
+                                  radius: 16 ,
+                                    backgroundColor:Colors.white,
+                                    child: Icon(Icons.add)),
+                              )),
+                        
+
+                      ],
                     ),
                     SizedBox(height:1),
                     Text(category[index].name , style:TextStyle(fontWeight:FontWeight.bold ),),//
@@ -143,21 +165,29 @@ class _HomeState extends State<Home> {
              ),
           ),
 
+          SizedBox(height: 30 ,),
+
           SingleChildScrollView(
             scrollDirection:Axis.horizontal,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: List.generate(product.length, (index){
-                final item = product [index];
-                return ProductItem(
-                    image:item.image,
-                    name :item.name,
-                    rate: item.rate,
-                    rateCount:item.rateCount,
-                    price:item.price);
-              }),
+            child: Padding( padding: const EdgeInsets.symmetric(horizontal:20.0),
+
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: List.generate(product.length, (index){
+                  final item = product [index];
+                  return ProductItem(
+                      image:item.image,
+                      name :item.name,
+                      rate: item.rate,
+                      rateCount:item.rateCount,
+                      price:item.price,
+                    onTap: (){},
+
+                  );
+                }),
+              ),
             ),
-          )
+          ),
 
 
           /*Card(
@@ -257,6 +287,61 @@ class _HomeState extends State<Home> {
 
           ), //
           ), */
+           Spacer(),
+          ///card widget
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: Container(
+              width: double.infinity,
+              height: 70,
+              decoration: BoxDecoration(
+                color:AppColors.primary,
+                borderRadius: BorderRadius.circular(7),
+              ),
+              child:Row(
+                children: [
+                  Expanded(child:
+                  ListView.builder(
+                    itemCount:3,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder:(context,index){
+                      return Padding(
+                        padding: const EdgeInsets.only(left:4.0 ),
+                        child: Container(
+                        width:50 ,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color:Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.asset("assets/category/shopping.png", ),
+                        )
+
+
+
+                                         ),
+                      );
+                    }
+
+                  ),
+                  ),
+                  Container(
+                    width: 2,
+                    height: 40 ,
+                    color: Colors.white,
+                  ),
+                  SizedBox(width: 10,)
+
+
+                ],
+              ),
+            ),
+
+          ),
+
+          SizedBox(height: 100),
 
         ],
       ),
